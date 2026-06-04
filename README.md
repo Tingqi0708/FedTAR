@@ -1,6 +1,12 @@
-# FedTAR Project
+# FedTAR: Task-Aware Federated Fine-Tuning for MoE-based Large Language Models
 
-This is a modular project version of `fedtar_bonly_fixedA.py`.
+This repository contains the official implementation of **FedTAR**, a task-aware federated fine-tuning framework for Mixture-of-Experts (MoE) based large language models.
+
+FedTAR is designed for federated learning scenarios where client data are highly heterogeneous and direct aggregation of parameter updates may suffer from task interference. Instead of aggregating full LoRA adapters, FedTAR adopts a **fixed-A B-only LoRA update scheme**, where the LoRA `A` matrices are shared and fixed across clients, while only the LoRA `B` matrices are locally trained, uploaded, and aggregated.
+
+To better handle task heterogeneity, FedTAR leverages the routing behavior of MoE models as a task-aware signal. Specifically, it extracts client-specific router signatures from expert activation patterns, projects them into a low-dimensional task space, performs task-aware clustering and aggregation, and reconstructs global updates through a learned task subspace. This allows the server to aggregate client updates based not only on data size, but also on the underlying task structure reflected by MoE routing patterns.
+
+The implementation supports federated fine-tuning and evaluation on multiple reasoning, knowledge, and instruction-following benchmarks, including **GSM8K**, **MMLU**, **BBH**, and **Dolly-15K**.
 
 ## Structure
 
